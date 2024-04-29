@@ -59,6 +59,8 @@ jobs:
           cd ../update
           ./update.sh
           cd ../document-server-integration/
+          git config --global user.email "iskandar.kurbonov@onlyoffice.com"
+          git config --global user.name "IskandarKurbonov"
           git add .
           git commit -m 'Update license'
           git push -u origin feature/update-license1
