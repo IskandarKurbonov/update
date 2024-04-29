@@ -9,13 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout update directory
+        uses: actions/checkout@v4
+        with:
+          repository: 'IskandarKurrbonov/build_tool'
+          path: 'build_tool'
+
       - name: Checkout server integration directory
         uses: actions/checkout@v4
         with:
           repository: 'IskandarKurbonov/document-server-integration'
-
-      - name: Checkout update directory
-        uses: actions/checkout@v4
+          path: 'build_tools'
 
       - name: Check ls
         run: |
@@ -27,5 +31,5 @@ jobs:
         with:
           python-version: '3.x'
           cache: pip
-      - run: pip install -r requirement.txt
+      - run: pip install -r build_tool/requirements.txt
 
