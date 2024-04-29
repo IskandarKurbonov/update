@@ -12,14 +12,14 @@ jobs:
       - name: Checkout update directory
         uses: actions/checkout@v4
         with:
-          repository: 'IskandarKurrbonov/build_tool'
-          path: 'build_tool'
+          repository: 'IskandarKurrbonov/update'
+          path: 'update'
 
       - name: Checkout server integration directory
         uses: actions/checkout@v4
         with:
           repository: 'IskandarKurbonov/document-server-integration'
-          path: 'build_tools'
+          path: 'document-server-integration'
 
       - name: Check ls
         run: |
