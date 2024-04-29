@@ -26,12 +26,20 @@ jobs:
       - name: Check ls
         run: |
          pwd && ls -lha
+         ls -lha update
          ls -lha ..
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - run: pip3 install reuse lint jinja2
+
+      - name: Install reuse
+        run: |
+          pip3 install reuse lint jinja2
+
+#      - name: Start update license
+#        run: |
+#          bash update/start.sh
 
 

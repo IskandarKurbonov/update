@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO="document-server-integration/"
+REPO="../document-server-integration/"
 
 find $REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" \) \
   -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \) | while read -r file; do
