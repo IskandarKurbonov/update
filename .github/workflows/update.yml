@@ -5,7 +5,7 @@ on:
 
 jobs:
   update-license:
-    name: "Update license"
+    name: "${{matrix.name}}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -64,10 +64,8 @@ jobs:
         run: |
           cd update
           for v in ${{ matrix.variable }}; do
-                export $v
+            export $REPO
           done
-          NEW_ARR+=(${{ matrix.repo }})
-          export REPO=${NEW_ARR[@]}
           ./update.sh
 
       - name: Commit changes
