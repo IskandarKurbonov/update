@@ -33,5 +33,5 @@ jobs:
         with:
           python-version: '3.x'
           cache: pip
-      - run: pip install -r update/requirements.txt
+      - run: pip3 install reuse lint jinja2
 
