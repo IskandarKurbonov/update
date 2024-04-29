@@ -37,6 +37,10 @@ jobs:
           echo "ls -lha .."
           ls -lha ..
           echo "########"
+          echo "########"
+          echo "pwd"
+          pwd
+          echo "########"          
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
