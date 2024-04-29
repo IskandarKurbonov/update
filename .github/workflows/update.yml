@@ -12,7 +12,7 @@ jobs:
       - name: Checkout update directory
         uses: actions/checkout@v4
         with:
-          repository: 'IskandarKurrbonov/update'
+          repository: 'IskandarKurbonov/update'
           path: 'update'
           ref: feature/some-fix
 
