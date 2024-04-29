@@ -12,7 +12,6 @@ jobs:
       matrix:
         include:
           - repo: "document-server-integration"
-            variable: "REPO=document-server-integration"
             name: "Update license in document-server-integration"
 
     steps:
@@ -44,14 +43,14 @@ jobs:
       - name: Start update license
         run: |
           cd update
-          export ${{matrix.variable}}
+          export REPO=${{matrix.repo}}
           ./update.sh
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/update-license4
+          new_branch: feature/update-license5
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
