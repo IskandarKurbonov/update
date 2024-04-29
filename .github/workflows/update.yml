@@ -31,5 +31,5 @@ jobs:
         with:
           python-version: '3.x'
           cache: pip
-      - run: pip install -r build_tool/requirements.txt
+      - run: pip install -r update/requirements.txt
 
