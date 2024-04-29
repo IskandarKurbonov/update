@@ -7,7 +7,14 @@ jobs:
   update-license:
     name: "Update license"
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: "document-server-integration"
+            variable: "REPO=document-server-integration"
+            name: "Update license in document-server-integration"
+          
     steps:
       - name: Checkout update directory
         uses: actions/checkout@v4
@@ -17,11 +24,11 @@ jobs:
           ref: feature/some-fix
           token: '${{ secrets.TOKEN }}'
 
-      - name: Checkout server integration directory
+      - name: Checkout ${{matrix.repo}}
         uses: actions/checkout@v4
         with:
-          repository: 'IskandarKurbonov/document-server-integration'
-          path: 'document-server-integration'
+          repository: 'IskandarKurbonov/${{matrix.repo}}'
+          path: '${{matrix.repo}}'
           ref: master
           token: '${{ secrets.TOKEN }}'
 
@@ -56,13 +63,18 @@ jobs:
       - name: Start update license
         run: |
           cd update
+          for v in ${{ matrix.variable }}; do
+                export $v
+          done
+          NEW_ARR+=(${{ matrix.repo }})
+          export REPO=${NEW_ARR[@]}
           ./update.sh
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          cwd: document-server-integration/
-          new_branch: update-license1
+          cwd: ${{matrix.repo}}
+          new_branch: update-license2
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license
