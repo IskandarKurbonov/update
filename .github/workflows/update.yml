@@ -14,12 +14,14 @@ jobs:
         with:
           repository: 'IskandarKurrbonov/update'
           path: 'update'
+          ref: feature/some-fix
 
       - name: Checkout server integration directory
         uses: actions/checkout@v4
         with:
           repository: 'IskandarKurbonov/document-server-integration'
           path: 'document-server-integration'
+          ref: master
 
       - name: Check ls
         run: |
