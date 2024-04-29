@@ -53,7 +53,7 @@ jobs:
 
       - name: Start update license
         run: |
-          cd ../document-server-integration/        
+          cd document-server-integration/        
           git branch feature/update-license1
           git checkout feature/update-license1        
           cd ../update
