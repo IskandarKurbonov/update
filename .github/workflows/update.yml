@@ -14,7 +14,7 @@ jobs:
           - repo: "document-server-integration"
             variable: "REPO=document-server-integration"
             name: "Update license in document-server-integration"
-          
+
     steps:
       - name: Checkout update directory
         uses: actions/checkout@v4
@@ -31,25 +31,6 @@ jobs:
           path: '${{matrix.repo}}'
           ref: master
           token: '${{ secrets.TOKEN }}'
-
-      - name: Check ls
-        run: |
-          echo "########"
-          echo "ls -lha"
-          ls -lha
-          echo "########"
-          echo "########"
-          echo "ls -lha update"
-          ls -lha update
-          echo "########"
-          echo "########"
-          echo "ls -lha .."
-          ls -lha ..
-          echo "########"
-          echo "########"
-          echo "pwd"
-          pwd
-          echo "########"          
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -75,4 +56,4 @@ jobs:
           new_branch: update-license2
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          message: Update license
+          message: Update license in ${{matrix.repo}}
