@@ -49,6 +49,6 @@ jobs:
 
       - name: Start update license
         run: |
-          ./update/start.sh
+          ./update/update.sh
 
 
