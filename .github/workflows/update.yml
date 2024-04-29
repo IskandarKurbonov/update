@@ -54,17 +54,17 @@ jobs:
 
       - name: Start update license
         run: |
-          cd document-server-integration/        
-          git branch feature/update-license1
-          git checkout feature/update-license1        
-          cd ../update
-          ./update.sh
-          cd ../document-server-integration/
-          git config --global user.email "iskandar.kurbonov@onlyoffice.com"
-          git config --global user.name "IskandarKurbonov"
-          git add .
-          git commit -m 'Update license'
-          git push -u origin feature/update-license1
+          ./update/update.sh
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: document-server-integration/
+          new_branch: update-license1
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: Update license
+
 
 
 
