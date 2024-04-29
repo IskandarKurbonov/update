@@ -21,7 +21,6 @@ jobs:
           repository: 'IskandarKurbonov/update'
           path: 'update'
           ref: feature/some-fix
-          token: '${{ secrets.TOKEN }}'
 
       - name: Checkout ${{matrix.repo}}
         uses: actions/checkout@v4
