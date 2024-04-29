@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find /home/runner/work/update/update/$REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" \) \
+find ../../$REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" \) \
   -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \) | while read -r file; do
     if grep -q "Ascensio System SIA" "$file"; then
         perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"
