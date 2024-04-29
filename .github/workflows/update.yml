@@ -15,6 +15,7 @@ jobs:
           repository: 'IskandarKurbonov/update'
           path: 'update'
           ref: feature/some-fix
+          token: '${{ secrets.TOKEN }}'
 
       - name: Checkout server integration directory
         uses: actions/checkout@v4
@@ -22,7 +23,7 @@ jobs:
           repository: 'IskandarKurbonov/document-server-integration'
           path: 'document-server-integration'
           ref: master
-          token: '${{github.token}}'
+          token: '${{ secrets.TOKEN }}'
 
       - name: Check ls
         run: |
@@ -65,8 +66,3 @@ jobs:
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license
-
-
-
-
-
