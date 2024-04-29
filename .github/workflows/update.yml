@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout update directory
-        uses: actions/checkout@v4
-
       - name: Checkout server integration directory
         uses: actions/checkout@v4
         with:
           repository: 'IskandarKurbonov/document-server-integration'
+
+      - name: Checkout update directory
+        uses: actions/checkout@v4
 
       - name: Check ls
         run: |
