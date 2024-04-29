@@ -44,16 +44,14 @@ jobs:
       - name: Start update license
         run: |
           cd update
-          for v in ${{ matrix.variable }}; do
-            export $REPO
-          done
+          export ${{matrix.variable}}
           ./update.sh
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/update-license3
+          new_branch: feature/update-license4
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
