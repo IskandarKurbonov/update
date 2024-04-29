@@ -53,6 +53,7 @@ jobs:
 
       - name: Start update license
         run: |
-          ./update/update.sh
+          cd update
+          ./update.sh
 
 
