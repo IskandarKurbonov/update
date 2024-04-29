@@ -25,9 +25,18 @@ jobs:
 
       - name: Check ls
         run: |
-         pwd && ls -lha
-         ls -lha update
-         ls -lha ..
+          echo "########"
+          echo "ls -lha"
+          ls -lha
+          echo "########"
+          echo "########"
+          echo "ls -lha update"
+          ls -lha update
+          echo "########"
+          echo "########"
+          echo "ls -lha .."
+          ls -lha ..
+          echo "########"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
