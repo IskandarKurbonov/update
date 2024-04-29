@@ -38,8 +38,8 @@ jobs:
         run: |
           pip3 install reuse lint jinja2
 
-#      - name: Start update license
-#        run: |
-#          bash update/start.sh
+      - name: Start update license
+        run: |
+          ./update/start.sh
 
 
