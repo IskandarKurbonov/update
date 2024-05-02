@@ -51,6 +51,7 @@ jobs:
 
   update-license:
     name: "Update license in ${{matrix.repo}}"
+    runs-on: ubuntu-latest
     env:
       REPO_FOLDER: ${{ matrix.repo }}
     needs: [prepare]
