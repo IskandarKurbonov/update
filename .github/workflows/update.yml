@@ -14,9 +14,6 @@ jobs:
           - repo: "document-server-integration"
             name: "Update license in document-server-integration"
 
-          - repo: "DocSpace-buildtools"
-            name: "Update license in DocSpace-buildtools"
-
           - repo: "web-apps"
             name: "Update license in web-apps"
 
@@ -33,7 +30,7 @@ jobs:
         with:
           repository: 'IskandarKurbonov/${{matrix.repo}}'
           path: '${{matrix.repo}}'
-          ref: 'feature/timeout-time'
+          ref: master
           token: '${{ secrets.TOKEN }}'
 
       - name: Set up Python 3.
@@ -47,18 +44,6 @@ jobs:
 
       - name: Start update license
         run: |
-          echo "######################"
-          echo "LS LHA"
-          ls -lha
-          echo "######################"
-          echo "######################"
-          echo "pwd"
-          pwd
-          echo "######################"
-          echo "######################"
-          echo "LS LHA .."
-          ls -lha ../
-          echo "######################"
           cd update
           export REPO=${{matrix.repo}}
           ./update.sh
@@ -67,7 +52,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license1
+          new_branch: feature/updater-license2
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
