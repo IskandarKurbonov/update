@@ -15,7 +15,10 @@ jobs:
             name: "Update license in document-server-integration"
 
           - repo: "DocSpace-buildtools"
-            name: "Update license in DocSpace-buildtools"            
+            name: "Update license in DocSpace-buildtools"
+
+          - repo: "web-apps"
+            name: "Update license in web-apps"
 
     steps:
       - name: Checkout update directory
