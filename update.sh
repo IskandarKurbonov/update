@@ -1,9 +1,5 @@
 #!/bin/bash
 
-FILE_FORMATS=".js|.java|.css|.php|.rb|.py|.html"
-
-IGNORE_PATHS=".git|.github"
-
 find ../$REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o -name "*.rb" -o -name "*.py" -o -name "*.html" \) \
   -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \) | while read -r file; do
     if grep -q "Ascensio System SIA" "$file"; then

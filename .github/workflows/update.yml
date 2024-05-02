@@ -44,6 +44,18 @@ jobs:
 
       - name: Start update license
         run: |
+          echo "######################"
+          echo "LS LHA"
+          ls -lha
+          echo "######################"
+          echo "######################"
+          echo "pwd"
+          pwd
+          echo "######################"
+          echo "######################"
+          echo "LS LHA .."
+          ls -lha ../
+          echo "######################"
           cd update
           export REPO=${{matrix.repo}}
           ./update.sh
