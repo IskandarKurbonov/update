@@ -17,6 +17,9 @@ jobs:
           - repo: "web-apps"
             name: "Update license in web-apps"
 
+          - repo: "DocSpace-buildtools"
+            name: "Update license in DocSpace-buildtools"
+
     steps:
       - name: Checkout update directory
         uses: actions/checkout@v4
@@ -52,7 +55,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license2
+          new_branch: feature/updater-license3
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
