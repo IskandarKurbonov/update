@@ -53,20 +53,20 @@ jobs:
 
       - name: Repo files
         id: repo
-        run: tar -cvf repo.tar ./
+        run: tar -cvf repo.tar ./${{matrix.repo}}
 
       - name: Upload artifact
         if: steps.repo.outcome == 'success'
         uses: actions/upload-artifact@v3
         with:
-          name: repo-artifact
-          path: repo.tar
+          name: ${{matrix.repo}}-artifact
+          path: ${{matrix.repo}}.tar
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license4
+          new_branch: feature/updater-license5
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
