@@ -4,8 +4,7 @@ on:
   push:
 
 jobs:
-  update-license:
-    name: "${{matrix.name}}"
+  prepare:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,24 +45,67 @@ jobs:
           pip3 install reuse lint jinja2
 
       - name: Start update license
+        id: export-reponame
+        run: |
+          echo "REPO=${{matrix.repo}}" >> $GITHUB_OUTPUT
+
+  update-license:
+    name: "Update license in ${{matrix.repo}}"
+    env:
+      REPO_FOLDER: ${{ matrix.repo }}
+    needs: [prepare]
+    strategy:
+      fail-fast: false
+      matrix: 
+        repo: ${{ needs.prepare.outputs.export-reponame }}
+    steps:
+
+      - name: Repo files
+        id: repo
         run: |
           cd update
           export REPO=${{matrix.repo}}
           ./update.sh
-          ls -lha
-          pwd
-          ls -lha ..
-
-      - name: Repo files
-        id: repo
-        run: tar -cvf ${{matrix.repo}}.tar ./${{matrix.repo}}
+          tar -cvf ${{matrix.repo}}.tar ./${{matrix.repo}}
 
       - name: Upload artifact
         if: steps.repo.outcome == 'success'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.repo}}-artifact
           path: ${{matrix.repo}}.tar
+
+      - name: extract repo.zip
+        run: |
+          mkdir -p ./artifacts/${REPO_FOLDER}
+          unzip ./${REPO_FOLDER}/dist/plugin.zip -d ./artifacts/${REPO_FOLDER}
+      
+      - name: Archive plugins artifacts separate
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_FOLDER }}
+          path: |
+            ./artifacts/${{ env.REPO_FOLDER }}
+
+  artifacts:
+    name: "Make all in one archive"
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    needs: [update-license]
+    steps:
+      - run: mkdir -p ./repos
+      
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./repos
+          
+      - name: Make all-in-one archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: All-in-one
+          path: |
+            ./repos
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
