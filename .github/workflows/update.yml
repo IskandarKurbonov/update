@@ -33,7 +33,7 @@ jobs:
         with:
           repository: 'IskandarKurbonov/${{matrix.repo}}'
           path: '${{matrix.repo}}'
-          ref: master
+          ref: 'feature/timeout-time'
           token: '${{ secrets.TOKEN }}'
 
       - name: Set up Python 3.
@@ -67,7 +67,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license11
+          new_branch: feature/updater-license1
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
