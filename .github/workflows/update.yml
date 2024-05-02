@@ -50,6 +50,9 @@ jobs:
           cd update
           export REPO=${{matrix.repo}}
           ./update.sh
+          ls -lha
+          pwd
+          ls -lha ..
 
       - name: Repo files
         id: repo
