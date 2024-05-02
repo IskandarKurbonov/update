@@ -50,31 +50,31 @@ jobs:
           echo "REPO=${{matrix.repo}}" >> $GITHUB_OUTPUT
 
   update-license:
-    name: "Update license in ${{matrix.repo}}"
+    name: "Update license in ${{matrix.repo-name}}"
     runs-on: ubuntu-latest
     env:
-      REPO_FOLDER: ${{ matrix.repo }}
+      REPO_FOLDER: ${{ matrix.repo-name }}
     needs: [prepare]
     strategy:
       fail-fast: false
       matrix: 
-        repo: ${{ needs.prepare.outputs.export-reponame }}
+        repo-name: ${{ needs.prepare.outputs.export-reponame }}
     steps:
 
       - name: Repo files
         id: repo
         run: |
           cd update
-          export REPO=${{matrix.repo}}
+          export REPO=${{matrix.repo-name}}
           ./update.sh
-          tar -cvf ${{matrix.repo}}.tar ./${{matrix.repo}}
+          tar -cvf ${{matrix.repo-name}}.tar ./${{matrix.repo-name}}
 
       - name: Upload artifact
         if: steps.repo.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{matrix.repo}}-artifact
-          path: ${{matrix.repo}}.tar
+          name: ${{matrix.repo-name}}-artifact
+          path: ${{matrix.repo-name}}.tar
 
       - name: extract repo.zip
         run: |
@@ -108,11 +108,11 @@ jobs:
           path: |
             ./repos
 
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license6
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          message: Update license in ${{matrix.repo}}
+      # - name: Commit changes
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     cwd: ${{matrix.repo}}
+      #     new_branch: feature/updater-license6
+      #     author_name: github-actions[bot]
+      #     author_email: github-actions[bot]@users.noreply.github.com
+      #     message: Update license in ${{matrix.repo}}
