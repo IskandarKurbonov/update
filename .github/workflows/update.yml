@@ -56,7 +56,7 @@ jobs:
 
       - name: Repo files
         id: repo
-        run: tar -cvf repo.tar ./${{matrix.repo}}
+        run: tar -cvf ${{matrix.repo}}.tar ./${{matrix.repo}}
 
       - name: Upload artifact
         if: steps.repo.outcome == 'success'
