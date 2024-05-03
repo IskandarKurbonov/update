@@ -1,6 +1,6 @@
 name: Update license
 
-on:
+#on:
 #  push:
 
 jobs:
