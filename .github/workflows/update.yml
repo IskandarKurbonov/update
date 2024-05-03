@@ -50,17 +50,13 @@ jobs:
           echo "REPO=${{matrix.repo}}" >> $GITHUB_OUTPUT
 
   update-license:
-    name: "Update license in ${{matrix.repo-name}}"
+    name: "Update license in ${{matrix.repo}}"
     runs-on: ubuntu-latest
-    env:
-      REPO_FOLDER: ${{ matrix.repo-name }}
-    needs: [prepare]
     strategy:
       fail-fast: false
       matrix: 
-        repo-name: ${{ needs.prepare.outputs.export-reponame }}
+        repo-name: [document-server-integration, web-apps, DocSpace-buildtools]
     steps:
-
       - name: Repo files
         id: repo
         run: |
@@ -68,25 +64,22 @@ jobs:
           export REPO=${{matrix.repo-name}}
           ./update.sh
           tar -cvf ${{matrix.repo-name}}.tar ./${{matrix.repo-name}}
-
       - name: Upload artifact
         if: steps.repo.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.repo-name}}-artifact
           path: ${{matrix.repo-name}}.tar
-
       - name: extract repo.zip
         run: |
-          mkdir -p ./artifacts/${REPO_FOLDER}
-          unzip ./${REPO_FOLDER}/dist/plugin.zip -d ./artifacts/${REPO_FOLDER}
-      
+          mkdir -p ./artifacts/${{matrix.repo-name}}
+          unzip ./${{matrix.repo-name}}/dist/plugin.zip -d ./artifacts/${{matrix.repo-name}}
       - name: Archive plugins artifacts separate
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPO_FOLDER }}
+          name: ${{matrix.repo-name}}
           path: |
-            ./artifacts/${{ env.REPO_FOLDER }}
+            ./artifacts/${{matrix.repo-name}}
 
   artifacts:
     name: "Make all in one archive"
