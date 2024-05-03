@@ -1,10 +1,11 @@
 name: Update license
 
 on:
-  push:
+#  push:
 
 jobs:
   prepare:
+    name: Prepare for ${{ matrix.repo }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -45,9 +46,18 @@ jobs:
           pip3 install reuse lint jinja2
 
       - name: Start update license
-        id: export-reponame
+        id: matrix
         run: |
-          echo "REPO=${{matrix.repo}}" >> $GITHUB_OUTPUT
+          FOLDERS=()
+          for d in $(ls -d */); do
+              FOLDERS+=($(basename ${d}))
+            fi
+          done
+          echo "folders for update is: "
+          echo "${FOLDERS[@]}"
+
+          # Set new matrix for build job
+          echo "folders=$(jq -c -n '$ARGS.positional' --args "${folders[@]}")" >> "$GITHUB_OUTPUT"
 
   update-license:
     name: "Update license in ${{matrix.repo}}"
