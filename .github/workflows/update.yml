@@ -52,10 +52,11 @@ jobs:
   update-license:
     name: "Update license in ${{matrix.repo}}"
     runs-on: ubuntu-latest
+    needs: [prepare]
     strategy:
       fail-fast: false
       matrix: 
-        repo-name: [document-server-integration, web-apps, DocSpace-buildtools]
+        repo-name: ${{needs.prepare.outputs.export-reponame}}
     steps:
       - name: Repo files
         id: repo
