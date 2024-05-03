@@ -67,14 +67,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        folder: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+        folder: ${{ steps.matrix.outputs.FOLDERS }}
     steps:
 
       - name: Checkout ${{matrix.repo}}
         uses: actions/checkout@v4
         with:
           repository: 'IskandarKurbonov/${{matrix.folder}}'
-          path: '${{matrix.repo}}'
+          path: '${{matrix.folder}}'
           ref: master
           token: '${{ secrets.TOKEN }}'    
       
