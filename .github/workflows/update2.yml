@@ -66,10 +66,17 @@ jobs:
     needs: [prepare]
     strategy:
       fail-fast: false
-      matrix:
-        folder: ${{ steps.matrix.outputs.FOLDERS }}
+      matrix: 
+        folder: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+
+      - name: Checkout ${{matrix.repo}}
+        uses: actions/checkout@v4
+        with:
+          repository: 'IskandarKurbonov/${{matrix.folder}}'
+          path: '${{matrix.repo}}'
+          ref: master
+          token: '${{ secrets.TOKEN }}'    
       
       - name: Update license
         run: |
