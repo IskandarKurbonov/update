@@ -51,7 +51,6 @@ jobs:
           FOLDERS=()
           for d in $(ls -d */); do
               FOLDERS+=($(basename ${d}))
-            fi
           done
           echo "folders for update is: "
           echo "${FOLDERS[@]}"
