@@ -67,7 +67,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        folder: ${{ steps.matrix.outputs.FOLDERS }}
+        folder: ${{ needs.prepare.outputs.FOLDERS }}
     steps:
 
       - name: Checkout ${{matrix.repo}}
