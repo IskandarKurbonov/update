@@ -5,7 +5,6 @@ on:
 
 jobs:
   prepare:
-    name: Prepare for ${{ matrix.repo }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -45,7 +44,7 @@ jobs:
         run: |
           pip3 install reuse lint jinja2
 
-      - name: Start update license
+      - name: Set up matrix
         id: matrix
         run: |
           FOLDERS=()
@@ -54,8 +53,58 @@ jobs:
               FOLDERS+=($(basename ${d}))
             fi
           done
-          echo "folders for update is: "
-          echo "${FOLDERS[@]}"
+          echo "folders for update is: ${FOLDERS[@]}"
 
           # Set new matrix for build job
           echo "folders=$(jq -c -n '$ARGS.positional' --args "${folders[@]}")" >> "$GITHUB_OUTPUT"
+
+  update:
+    name: "Update license: ${{ matrix.folder }}"
+    runs-on: ubuntu-latest
+    env:
+      REPO_FOLDER: ${{ matrix.folder }}
+    needs: [prepare]
+    strategy:
+      fail-fast: false
+      matrix: 
+        folder: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Update license
+        run: |
+          cd ./update
+          export REPO=${{matrix.folder}}
+          ./update.sh
+
+      - name: extract folder.zip
+        run: |
+          mkdir -p ./artifacts/${{matrix.folder}}
+          unzip ./${{matrix.folder}}/dist/folder.zip -d ./artifacts/${{matrix.folder}}
+      
+      - name: Archive plugins artifacts separate
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_FOLDER }}
+          path: |
+            ./artifacts/${{ env.REPO_FOLDER }}
+
+  artifacts:
+    name: "Make all in one archive"
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    needs: [update]
+    steps:
+      - run: mkdir -p ./repos
+      
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./repos
+          
+      - name: Make all-in-one archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: All-in-one
+          path: |
+            ./repos
