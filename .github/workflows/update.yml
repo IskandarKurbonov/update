@@ -1,7 +1,8 @@
 name: Update license
 
 on:
-  push:
+  workflow_dispatch:
+#  push:
 
 jobs:
   update-license:
