@@ -45,7 +45,7 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-            tree ./
+            tree
 
           # FOLDERS=()
           # for d in $(ls -d */); do
