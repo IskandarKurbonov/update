@@ -45,7 +45,8 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-            ls -lha ./update
+            apt install -y tree
+            ls -lha ./*
             pwd
             ls -lha ..
           # FOLDERS=()
