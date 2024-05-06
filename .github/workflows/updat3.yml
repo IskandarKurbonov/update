@@ -74,8 +74,12 @@ jobs:
     needs: update-license
     runs-on: ubuntu-latest
     steps:
+      - name: Merge artifacts
+        run: |
+          tar -cvf all-repos-artifact.tar ./*.tar
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: all-repos-artifact
-          path: ./*.tar
+          path: ./all-repos-artifact.tar
