@@ -10,15 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-            repo: ["document-server-integration", "web-apps", "DocSpace-buildtools"]
-            # name: "Update license in document-server-integration"
-
-          # - repo: "web-apps"
-          #   name: "Update license in web-apps"
-
-          # - repo: "DocSpace-buildtools"
-          #   name: "Update license in DocSpace-buildtools"
+        repo: ["document-server-integration", "web-apps", "DocSpace-buildtools"]
 
     steps:
       - name: Checkout update directory
