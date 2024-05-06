@@ -45,16 +45,19 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-          FOLDERS=()
-          for d in $(ls -d */); do
-              folder=$(basename ${d})
-              if [[ $folder != "update" ]]; then
-                  FOLDERS+=("$folder")
-              fi
-          done
+            ls -lha
+            pwd
+            ls -lha ..
+          # FOLDERS=()
+          # for d in $(ls -d */); do
+          #     folder=$(basename ${d})
+          #     if [[ $folder != "update" ]]; then
+          #         FOLDERS+=("$folder")
+          #     fi
+          # done
 
-          echo "Folders for updating the license are: "
-          echo "${FOLDERS[@]}"
+          # echo "Folders for updating the license are: "
+          # echo "${FOLDERS[@]}"
 
-          # Set new matrix for build job
-          echo "folder=$(jq -c -n '$ARGS.positional' --args "${FOLDERS[@]}")" >> "$GITHUB_OUTPUT"
+          # # Set new matrix for build job
+          # echo "folder=$(jq -c -n '$ARGS.positional' --args "${FOLDERS[@]}")" >> "$GITHUB_OUTPUT"
