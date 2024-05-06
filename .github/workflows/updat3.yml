@@ -1,17 +1,12 @@
 name: Update license
 
 on:
-  # workflow_dispatch:
-  push:
+  workflow_dispatch:
+#  push:
 
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        repo: ["document-server-integration", "web-apps", "DocSpace-buildtools"]
-
     steps:
       - name: Checkout update directory
         uses: actions/checkout@v4
@@ -20,6 +15,24 @@ jobs:
           path: 'update'
           ref: feature/some-fix
 
+  update-license:
+    name: "Update license"
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: "document-server-integration"
+            name: "Update license in document-server-integration"
+
+          - repo: "web-apps"
+            name: "Update license in web-apps"
+
+          - repo: "DocSpace-buildtools"
+            name: "Update license in DocSpace-buildtools"
+
+    steps:
       - name: Checkout ${{matrix.repo}}
         uses: actions/checkout@v4
         with:
@@ -28,11 +41,6 @@ jobs:
           ref: master
           token: '${{ secrets.TOKEN }}'
 
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
@@ -42,23 +50,36 @@ jobs:
         run: |
           pip3 install reuse lint jinja2
 
-      - name: make matrix
-        id: folder
+      - name: Start update license
         run: |
-            ls -lha
-            pwd
-            ls -lha ..
+          cd update
+          export REPO=${{matrix.repo}}
+          ./update.sh
+          ls -lha
+          pwd
+          ls -lha ..
 
-          # FOLDERS=()
-          # for d in $(ls -d */); do
-          #     folder=$(basename ${d})
-          #     if [[ $folder != "update" ]]; then
-          #         FOLDERS+=("$folder")
-          #     fi
-          # done
+      - name: Archive repo files
+        id: repo
+        run: |
+          tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
+          mv ${{matrix.repo}}.tar ../${{matrix.repo}}.tar
 
-          # echo "Folders for updating the license are: "
-          # echo "${FOLDERS[@]}"
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ${{matrix.repo}}
+          new_branch: feature/updater-license6
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: Update license in ${{matrix.repo}}
 
-          # # Set new matrix for build job
-          # echo "folder=$(jq -c -n '$ARGS.positional' --args "${FOLDERS[@]}")" >> "$GITHUB_OUTPUT"
+  upload-artifacts:
+    needs: update-license
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-repos-artifact
+          path: ./*.tar
