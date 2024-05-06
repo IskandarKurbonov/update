@@ -28,6 +28,11 @@ jobs:
           ref: master
           token: '${{ secrets.TOKEN }}'
 
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
@@ -53,56 +58,3 @@ jobs:
 
           # Set new matrix for build job
           echo "folder=$(jq -c -n '$ARGS.positional' --args "${FOLDERS[@]}")" >> "$GITHUB_OUTPUT"
-# #
-#   update-license:
-#     name: "Update license in: ${{ matrix.folder }}"
-#     runs-on: ubuntu-latest
-#     env:
-#       FOLDER: ${{ matrix.folder }}
-#     needs: [prepare]
-#     strategy:
-#       fail-fast: false
-#       matrix: 
-#         folder: ${{ fromJSON(needs.prepare.outputs.folder) }}
-#     steps:
-#       - name: Checkout update directory
-#         uses: actions/checkout@v4
-#         with:
-#           repository: 'IskandarKurbonov/update'
-#           path: 'update'
-#           ref: feature/some-fix
-
-#       - name: Checkout ${{matrix.folder}}
-#         uses: actions/checkout@v4
-#         with:
-#           repository: 'IskandarKurbonov/${{matrix.folder}}'
-#           path: '${{matrix.folder}}'
-#           ref: master
-#           token: '${{ secrets.TOKEN }}'
-
-#       - name: Set up Python 3.
-#         uses: actions/setup-python@v5
-#         with:
-#           python-version: '3.x'
-
-#       - name: Install reuse
-#         run: |
-#           pip3 install reuse lint jinja2
-
-#       - name: Build plugin
-#         run: |
-#           cd ./update
-#           export REPO=${{matrix.folder}}
-#           ./update.sh
-
-#       - name: extract plugins.zip
-#         run: |
-#           mkdir -p ./artifacts/${FOLDER}
-#           unzip ./${FOLDER}/dist/plugin.zip -d ./artifacts/${FOLDER}
-      
-#       - name: Archive plugins artifacts separate
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: ${{ env.FOLDER }}
-#           path: |
-#             ./artifacts/${{ env.FOLDER }}
