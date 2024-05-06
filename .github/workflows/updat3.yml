@@ -45,10 +45,8 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-            sudo apt install -y tree
-            ls -lha ./*
-            pwd
-            ls -lha ..
+            tree ./
+
           # FOLDERS=()
           # for d in $(ls -d */); do
           #     folder=$(basename ${d})
