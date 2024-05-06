@@ -45,7 +45,7 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-            apt install -y tree
+            sudo apt install -y tree
             ls -lha ./*
             pwd
             ls -lha ..
