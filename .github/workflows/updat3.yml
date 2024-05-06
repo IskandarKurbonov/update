@@ -52,16 +52,16 @@ jobs:
           export REPO=${{matrix.repo}}
           ./update.sh
 
-      - name: Archive repo files
-        id: repo
-        run: |
-          tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
+      # - name: Archive repo files
+      #   id: repo
+      #   run: |
+      #     tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: license-artifact
-          path: ${{matrix.repo}}.tar
+          path: ${{matrix.repo}}
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
@@ -72,33 +72,33 @@ jobs:
           author_email: github-actions[bot]@users.noreply.github.com
           message: Update license in ${{matrix.repo}}
 
-  upload-artifacts:
-    needs: update-license
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - repo: "document-server-integration"
-            name: "Update license in document-server-integration"
+  # upload-artifacts:
+  #   needs: update-license
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include:
+  #         - repo: "document-server-integration"
+  #           name: "Update license in document-server-integration"
 
-          - repo: "web-apps"
-            name: "Update license in web-apps"
+  #         - repo: "web-apps"
+  #           name: "Update license in web-apps"
 
-          - repo: "DocSpace-buildtools"
-            name: "Update license in DocSpace-buildtools"
+  #         - repo: "DocSpace-buildtools"
+  #           name: "Update license in DocSpace-buildtools"
     
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{matrix.repo}}-artifact
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ${{matrix.repo}}-artifact
 
-      - name: Extract files
-        run: | 
-          tar -xvf ${{matrix.repo}}.tar
-          rm -rf ${{matrix.repo}}.tar
-          ls -lha
+  #     - name: Extract files
+  #       run: | 
+  #         tar -xvf ${{matrix.repo}}.tar
+  #         rm -rf ${{matrix.repo}}.tar
+  #         ls -lha
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v3
