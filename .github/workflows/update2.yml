@@ -55,12 +55,10 @@ jobs:
               if [[ $folder != "update" ]]; then
                   FOLDERS+=("$folder")
               fi
-          done          
-          # for d in $(ls -d */); do
-          #     FOLDERS+=($(basename ${d}))
-          # done
-          # echo "folders for update license is: "
-          # echo "${FOLDERS[@]}"
+          done
+
+          echo "Folders for updating the license are: "
+          echo "${FOLDERS[@]}"
 
           # Set new matrix for build job
           echo "folders=$(jq -c -n '$ARGS.positional' --args "${FOLDERS[@]}")" >> "$GITHUB_OUTPUT"
