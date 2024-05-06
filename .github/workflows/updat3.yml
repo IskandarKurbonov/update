@@ -45,7 +45,7 @@ jobs:
       - name: make matrix
         id: folder
         run: |
-            ls -lha
+            ls -lha ./update
             pwd
             ls -lha ..
           # FOLDERS=()
