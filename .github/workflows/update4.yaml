@@ -50,6 +50,9 @@ jobs:
         run: |
           cd ./update
           # export REPO=${{matrix.repo}}
+          export GITHUB_TOKEN="${{secrets.TOKEN}}"
+          export GITHUB_USER="IskandarKurbonov"
+          chmod +x release.sh
           bash ./release.sh
 
   # upload-artifacts:
