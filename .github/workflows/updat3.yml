@@ -56,7 +56,7 @@ jobs:
         id: repo
         run: |
           ls -lha
-          # tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
+          tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
