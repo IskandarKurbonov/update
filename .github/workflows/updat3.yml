@@ -55,13 +55,25 @@ jobs:
       - name: Archive repo files
         id: repo
         run: |
-          tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
+          ls -lha
+          # tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: license-artifact
           path: ${{matrix.repo}}.tar
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: license-artifact
+
+      - name: Extract files
+        run: | 
+          tar -xvf ${{matrix.repo}}.tar
+          ls -la
+          tree
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
