@@ -48,6 +48,7 @@ jobs:
 
       - name: Start update license
         run: |
+          cd ./update
           # export REPO=${{matrix.repo}}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
