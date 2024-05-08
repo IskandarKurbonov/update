@@ -13,8 +13,6 @@ ONLYOFFICE_REPOS+=('document-server-integration')
 ONLYOFFICE_REPOS+=('sdkjs')
 ONLYOFFICE_REPOS+=('web-apps')
 
-rm -rf ${OUTPUT_DIR}
-
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
     git clone https://github.com/$GITHUB_USER/$REPO.git
