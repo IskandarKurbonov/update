@@ -17,14 +17,16 @@ do
   -s \
   -L https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/main.zip
 
-  ls -lha
-
-  # Run update.sh script
-  chmod +x ./update.sh
-  ./update.sh $REPO
 done
 
+ls -lha
+pwd
+tree
 
+
+  # Run update.sh script
+  # chmod +x ./update.sh
+  # ./update.sh $REPO
 
 # URL=https://github.com/IskandarKurbonov/update/releases/download/${RELEASE_TAG}/${OUTPUT_FILE_NAME}
      
