@@ -22,6 +22,9 @@ done
 ls -lha
 pwd
 tree
+unzip main.zip
+ls -lha
+ls -lha main
 
 
   # Run update.sh script
