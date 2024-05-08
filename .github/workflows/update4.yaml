@@ -8,18 +8,18 @@ jobs:
   update-license:
     name: "Update license"
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - repo: "document-server-integration"
-            name: "Update license in document-server-integration"
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     include:
+    #       - repo: "document-server-integration"
+    #         name: "Update license in document-server-integration"
 
-          - repo: "web-apps"
-            name: "Update license in web-apps"
+    #       - repo: "web-apps"
+    #         name: "Update license in web-apps"
 
-          - repo: "DocSpace-buildtools"
-            name: "Update license in DocSpace-buildtools"
+    #       - repo: "DocSpace-buildtools"
+    #         name: "Update license in DocSpace-buildtools"
 
     steps:
       - name: Checkout update directory
