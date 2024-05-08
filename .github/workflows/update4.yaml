@@ -29,13 +29,13 @@ jobs:
           path: 'update'
           ref: feature/some-fix
 
-      - name: Checkout ${{matrix.repo}}
-        uses: actions/checkout@v4
-        with:
-          repository: 'IskandarKurbonov/${{matrix.repo}}'
-          path: '${{matrix.repo}}'
-          ref: master
-          token: '${{ secrets.TOKEN }}'
+      # - name: Checkout ${{matrix.repo}}
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: 'IskandarKurbonov/${{matrix.repo}}'
+      #     path: '${{matrix.repo}}'
+      #     ref: master
+      #     token: '${{ secrets.TOKEN }}'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -48,7 +48,6 @@ jobs:
 
       - name: Start update license
         run: |
-          cd ./update
           # export REPO=${{matrix.repo}}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
