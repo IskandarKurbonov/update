@@ -9,8 +9,8 @@ ONLYOFFICE_REPOS+=('web-apps')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
+    ls -lha
     git clone https://github.com/$GITHUB_USER/$REPO.git
 done
 
-./update.sh
 
