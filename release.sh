@@ -16,9 +16,9 @@ ONLYOFFICE_REPOS+=('web-apps')
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
     git clone https://github.com/$GITHUB_USER/$REPO.git
-    ./update.sh
 done
 
+    ./update.sh
 
 # URL=https://github.com/$GITHUB_USER/$OUTPUT_DIR/releases/download/${RELEASE_TAG}/${OUTPUT_FILE_NAME}
      
