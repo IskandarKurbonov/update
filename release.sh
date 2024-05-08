@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-GITHUB_TOKEN=$1
-GITHUB_USER=$3
 VERSION=$2
 REPO_TAG=v$VERSION
 RELEASE_TAG=v${VERSION%.*}
