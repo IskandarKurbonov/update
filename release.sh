@@ -15,7 +15,7 @@ do
   -H 'Accept: application/vnd.github.v3.raw' \
   -O \
   -s \
-  -L https://github.com/$GITHUB_USER/$REPO/
+  -L https://github.com/$GITHUB_USER/$REPO.git
 
 done
 
