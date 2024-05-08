@@ -23,14 +23,20 @@ do
   -H 'Accept: application/vnd.github.v3.raw' \
   -O \
   -s \
-  -L https://github.com/$GITHUB_USER/$REPO/archive/$REPO_TAG.zip
+  -L https://github.com/$GITHUB_USER/$REPO.git
 
-  FILE_NAME=$REPO.zip
-  mv $REPO_TAG.zip $FILE_NAME
-  unzip -q $FILE_NAME -d $OUTPUT_DIR
-  mv $OUTPUT_DIR/$REPO-$VERSION $OUTPUT_DIR/$REPO
-  rm $FILE_NAME
+  # FILE_NAME=$REPO.zip
+  # mv $REPO_TAG.zip $FILE_NAME
+  # unzip -q $FILE_NAME -d $OUTPUT_DIR
+  # mv $OUTPUT_DIR/$REPO-$VERSION $OUTPUT_DIR/$REPO
+  # rm $FILE_NAME
 done
+
+
+tree
+ls -lha
+ls -lha ../
+tree
 
 rm -f ${OUTPUT_FILE_NAME}
 zip -r -q ${OUTPUT_FILE_NAME} ${OUTPUT_DIR}
