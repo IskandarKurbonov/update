@@ -53,7 +53,6 @@ jobs:
           export GITHUB_USER="IskandarKurbonov"
           chmod +x release.sh
           bash ./release.sh
-          ./update.sh
 
 
   # upload-artifacts:
