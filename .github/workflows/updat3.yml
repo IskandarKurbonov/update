@@ -56,33 +56,24 @@ jobs:
         id: repo
         run: |
           ls -lha
-          tar -cvf ${{matrix.repo}}.tar ${{matrix.repo}}
+          pwd
+          ls -lha ../
+          tar -cvf main.tar ./
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: license-artifact
-          path: ${{matrix.repo}}.tar
+          path: main.tar
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: license-artifact
-
-      - name: Extract files
-        run: | 
-          tar -xvf ${{matrix.repo}}.tar
-          ls -la
-          tree
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          cwd: ${{matrix.repo}}
-          new_branch: feature/updater-license6
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          message: Update license in ${{matrix.repo}}
+      # - name: Commit changes
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     cwd: ${{matrix.repo}}
+      #     new_branch: feature/updater-license6
+      #     author_name: github-actions[bot]
+      #     author_email: github-actions[bot]@users.noreply.github.com
+      #     message: Update license in ${{matrix.repo}}
 
   # upload-artifacts:
   #   needs: update-license
