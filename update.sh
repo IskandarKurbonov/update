@@ -1,12 +1,7 @@
 #!/bin/bash
 
-if [ -z "$REPO" ]; then
-  echo "Variable $REPO is not defined."
-  exit 1
-fi
-
-for file in $(find "$REPO" -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o -name "*.sh" \) \
-  -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \)); do
+find $REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o -name "*.sh" \) \
+  -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \) | while read -r file; do
     if grep -q "Ascensio System SIA" "$file"; then
         perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"
         perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"
