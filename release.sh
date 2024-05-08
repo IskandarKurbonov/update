@@ -18,28 +18,21 @@ rm -rf ${OUTPUT_DIR}
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
     git clone https://github.com/$GITHUB_USER/$REPO.git
+    ./update.sh
 done
 
 
-tree
-ls -lha
-ls -lha ../
-tree
-
-rm -f ${OUTPUT_FILE_NAME}
-zip -r -q ${OUTPUT_FILE_NAME} ${OUTPUT_DIR}
-
-URL=https://github.com/$GITHUB_USER/$OUTPUT_DIR/releases/download/${RELEASE_TAG}/${OUTPUT_FILE_NAME}
+# URL=https://github.com/$GITHUB_USER/$OUTPUT_DIR/releases/download/${RELEASE_TAG}/${OUTPUT_FILE_NAME}
      
-cat << EOF >> release_hash.txt
-"Url: ${URL}"
-"Size: $(wc -c ${OUTPUT_FILE_NAME} | awk '{print $1}')"
-"md5sum: $(md5sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
-"sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
-EOF
+# cat << EOF >> release_hash.txt
+# "Url: ${URL}"
+# "Size: $(wc -c ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+# "md5sum: $(md5sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+# "sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+# EOF
 
-git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_USER/update.git ${OUTPUT_DIR}/update
-cd ${OUTPUT_DIR}/update
-git tag ${RELEASE_TAG}
-git push origin ${RELEASE_TAG}
-gh release create ${RELEASE_TAG} ../../${OUTPUT_FILE_NAME} ../../release_hash.txt
+# git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/$GITHUB_USER/update.git ${OUTPUT_DIR}/update
+# cd ${OUTPUT_DIR}/update
+# git tag ${RELEASE_TAG}
+# git push origin ${RELEASE_TAG}
+# gh release create ${RELEASE_TAG} ../../${OUTPUT_FILE_NAME} ../../release_hash.txt
