@@ -19,17 +19,7 @@ rm -rf ${OUTPUT_DIR}
 
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
-  curl -H 'Authorization: token '$GITHUB_TOKEN \
-  -H 'Accept: application/vnd.github.v3.raw' \
-  -O \
-  -s \
-  -L https://github.com/$GITHUB_USER/$REPO.git
-
-  # FILE_NAME=$REPO.zip
-  # mv $REPO_TAG.zip $FILE_NAME
-  # unzip -q $FILE_NAME -d $OUTPUT_DIR
-  # mv $OUTPUT_DIR/$REPO-$VERSION $OUTPUT_DIR/$REPO
-  # rm $FILE_NAME
+    git clone https://github.com/$GITHUB_USER/$REPO.git
 done
 
 
