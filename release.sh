@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
 set -e
-VERSION=$2
-REPO_TAG=v$VERSION
-RELEASE_TAG=v${VERSION%.*}
 
 OUTPUT_DIR=./update
-OUTPUT_FILE_NAME=$REPO_TAG.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
