@@ -54,12 +54,6 @@ jobs:
           chmod +x release.sh
           bash ./release.sh
 
-      - run: |
-          ##
-          ls -lha
-          ls -lha update/
-
-
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
