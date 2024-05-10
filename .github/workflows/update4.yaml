@@ -54,6 +54,11 @@ jobs:
           chmod +x release.sh
           bash ./release.sh
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-artifact
+          path: master.zip
 
   # upload-artifacts:
   #   needs: update-license
