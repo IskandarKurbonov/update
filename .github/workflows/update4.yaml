@@ -55,6 +55,7 @@ jobs:
           bash ./release.sh
 
       - run: |
+          ##
           ls -lha
           ls -lha update/
 
