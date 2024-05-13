@@ -9,9 +9,9 @@ ONLYOFFICE_REPOS+=('web-apps')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
-    ls -lha
+
     git clone https://github.com/$GITHUB_USER/$REPO.git
-    ls -lha
+
     find $REPO -type f \( -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o -name "*.sh" \) \
         -not \( -path "$REPO/.git/*" -o -path "$REPO/.github/*" \) | while read -r file; do
       if grep -q "Ascensio System SIA" "$file"; then
@@ -24,6 +24,15 @@ do
       fi
     done
     
+    for file in "$REPO"/*; do
+        if [ -f "$file" ]; then
+            echo "File: $file"
+            echo "Size: $(wc -c "$file" | awk '{print $1}')"
+            echo "md5sum: $(md5sum -b "$file" | awk '{print $1}')"
+            echo "sha256sum: $(sha256sum -b "$file" | awk '{print $1}')"
+        fi
+    done >> "$REPO/release_hash.txt"
+
     zip -r master.zip $REPO
     rm -rf $REPO
 done
