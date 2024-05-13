@@ -24,7 +24,7 @@ do
       fi
     done
     
-    for file in "$REPO"/*; do
+    find "$REPO" -type f | while read -r file; do
         if [ -f "$file" ]; then
             echo "File: $file"
             echo "Size: $(wc -c "$file" | awk '{print $1}')"
