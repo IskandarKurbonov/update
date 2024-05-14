@@ -34,7 +34,7 @@ cat << 'EOF' >> release_hash.txt
     "md5sum: $(md5sum -b master.zip | awk '{print $1}')"
     "sha256sum: $(sha256sum -b master.zip | awk '{print $1}')"
 EOF
-
+#
 done
 
 
