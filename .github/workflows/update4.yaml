@@ -32,7 +32,6 @@ jobs:
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/}
-          chmod +x update.sh
           cat ./update.sh
           bash ./update.sh
 
