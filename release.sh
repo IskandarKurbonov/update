@@ -29,11 +29,11 @@ do
     zip -r master.zip $REPO
     rm -rf $REPO
 
-	cat << EOF >> release_hash.txt
-	"Size: $(wc -c master.zip | awk '{print $1}')"
-	"md5sum: $(md5sum -b master.zip | awk '{print $1}')"
-	"sha256sum: $(sha256sum -b master.zip | awk '{print $1}')"
-EOF
+    for zip in master.zip; do
+        echo "Size: $(wc -c < "$zip")"
+        echo "md5sum: $(md5sum -b "$zip" | awk '{print $1}')"
+        echo "sha256sum: $(sha256sum -b "$zip" | awk '{print $1}')"
+    done >> release_hash.txt
 
 done
 
