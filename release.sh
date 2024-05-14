@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 MAIN_DIR=./update
-RELEASE_TAG=v${VERSION}
+REPO_TAG=v$VERSION
+RELEASE_TAG=v${VERSION%.*}
+OUTPUT_FILE_NAME=$REPO_TAG.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
-# ONLYOFFICE_REPOS+=('sdkjs')
-# ONLYOFFICE_REPOS+=('web-apps')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
@@ -25,18 +25,19 @@ do
       fi
     done
 
-    zip -r master.zip $REPO
+    zip -r -q ${OUTPUT_FILE_NAME} $REPO
     rm -rf $REPO
 
-    for zip in master.zip; do
-        echo "Size: $(wc -c < "$zip")"
-        echo "md5sum: $(md5sum -b "$zip" | awk '{print $1}')"
-        echo "sha256sum: $(sha256sum -b "$zip" | awk '{print $1}')"
-    done >> release_hash.txt
 done
 
-git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ./update/update
-cd ./update/update
+cat << EOF >> release_hash.txt
+"Size: $(wc -c ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+"md5sum: $(md5sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+"sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+EOF
+
+git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ${MAIN_DIR}/update
+cd ${MAIN_DIR}/update
 git tag ${RELEASE_TAG}
 git push origin ${RELEASE_TAG}
 gh release create ${RELEASE_TAG} ../../master.zip ../../release_hash.txt
