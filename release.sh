@@ -34,7 +34,6 @@ do
         echo "md5sum: $(md5sum -b "$zip" | awk '{print $1}')"
         echo "sha256sum: $(sha256sum -b "$zip" | awk '{print $1}')"
     done >> release_hash.txt
-#
 done
 
 git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ./update/update
