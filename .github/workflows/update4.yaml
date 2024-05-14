@@ -28,8 +28,10 @@ jobs:
       - name: Start update license
         run: |
           cd ./update
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
+          export VERSION=${BRANCH_NAME#*/}
           chmod +x release.sh
           bash ./release.sh
 
