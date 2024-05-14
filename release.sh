@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 MAIN_DIR=./update
-REPO_TAG=v$VERSION
-RELEASE_TAG=v${VERSION%.*}
+RELEASE_TAG=v${VERSION}
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
