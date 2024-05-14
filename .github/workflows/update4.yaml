@@ -32,9 +32,9 @@ jobs:
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/}
-          chmod +x release.sh
-          cat ./release.sh
-          bash ./release.sh
+          chmod +x update.sh
+          cat ./update.sh
+          bash ./update.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
