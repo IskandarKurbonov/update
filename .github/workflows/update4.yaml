@@ -33,6 +33,7 @@ jobs:
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/}
           chmod +x release.sh
+          cat ./release.sh
           bash ./release.sh
 
       - name: Upload artifact
