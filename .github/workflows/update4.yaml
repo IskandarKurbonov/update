@@ -27,9 +27,19 @@ jobs:
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
           cat ./release.sh
           bash ./release.sh
+
+      # - name: Start update license
+      #   id: set-version
+      #   run: |
+      #     BRANCH_NAME=${GITHUB_REF#refs/heads/}
+      #     export GITHUB_TOKEN="${{secrets.TOKEN}}"
+      #     export GITHUB_USER="IskandarKurbonov"
+      #     export VERSION=${BRANCH_NAME#*/v}
+      #     echo "version=$VERSION" >> $GITHUB_OUTPUT
+      #     cat ./release.sh
+      #     bash ./release.sh
 
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v3
