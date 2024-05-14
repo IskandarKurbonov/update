@@ -31,7 +31,7 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
-          export VERSION=${BRANCH_NAME#*/}
+          export VERSION=${BRANCH_NAME#*/v}
           cat ./release.sh
           bash ./release.sh
 
