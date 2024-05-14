@@ -32,9 +32,9 @@ do
 done
 
 cat << EOF >> release_hash.txt
-    "Size: $(wc -c master.zip | awk '{print $1}')"
-    "md5sum: $(md5sum -b master.zip | awk '{print $1}')"
-    "sha256sum: $(sha256sum -b master.zip | awk '{print $1}')"
+"Size: $(wc -c master.zip | awk '{print $1}')"
+"md5sum: $(md5sum -b master.zip | awk '{print $1}')"
+"sha256sum: $(sha256sum -b master.zip | awk '{print $1}')"
 EOF
 
 git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ./update/update
