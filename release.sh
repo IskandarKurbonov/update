@@ -30,9 +30,9 @@ do
     rm -rf $REPO
 
     cat << EOF >> release_hash.txt
-        "Size: $(wc -c ${OUTPUT_FILE_NAME} | awk '{print $1}')"
-        "md5sum: $(md5sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
-        "sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+    "Size: $(wc -c master.zip | awk '{print $1}')"
+    "md5sum: $(md5sum -b master.zip | awk '{print $1}')"
+    "sha256sum: $(sha256sum -b master.zip | awk '{print $1}')"
     EOF
 done
 
