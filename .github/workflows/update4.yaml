@@ -1,25 +1,12 @@
 name: Update license
 
 on:
-  # workflow_dispatch:
   push:
 
 jobs:
   update-license:
     name: "Update license"
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     include:
-    #       - repo: "document-server-integration"
-    #         name: "Update license in document-server-integration"
-
-    #       - repo: "web-apps"
-    #         name: "Update license in web-apps"
-
-    #       - repo: "DocSpace-buildtools"
-    #         name: "Update license in DocSpace-buildtools"
 
     steps:
       - name: Checkout update directory
@@ -28,14 +15,6 @@ jobs:
           repository: 'IskandarKurbonov/update'
           path: 'update'
           ref: feature/some-fix
-
-      # - name: Checkout ${{matrix.repo}}
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: 'IskandarKurbonov/${{matrix.repo}}'
-      #     path: '${{matrix.repo}}'
-      #     ref: master
-      #     token: '${{ secrets.TOKEN }}'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -60,36 +39,3 @@ jobs:
           name: license-artifact
           path: ./update/master.zip
 
-  # upload-artifacts:
-  #   needs: update-license
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - repo: "document-server-integration"
-  #           name: "Update license in document-server-integration"
-
-  #         - repo: "web-apps"
-  #           name: "Update license in web-apps"
-
-  #         - repo: "DocSpace-buildtools"
-  #           name: "Update license in DocSpace-buildtools"
-    
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: ${{matrix.repo}}-artifact
-
-  #     - name: Extract files
-  #       run: | 
-  #         tar -xvf ${{matrix.repo}}.tar
-  #         rm -rf ${{matrix.repo}}.tar
-  #         ls -lha
-
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: all-repos-artifact
-      #     path: ./all-repos-artifact.tar

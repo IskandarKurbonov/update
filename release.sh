@@ -4,8 +4,8 @@ MAIN_DIR=./update
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
-ONLYOFFICE_REPOS+=('sdkjs')
-ONLYOFFICE_REPOS+=('web-apps')
+# ONLYOFFICE_REPOS+=('sdkjs')
+# ONLYOFFICE_REPOS+=('web-apps')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}
 do
@@ -23,18 +23,16 @@ do
           reuse annotate --year 2024 --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
       fi
     done
-    
-    find "$REPO" -type f | while read -r file; do
-        if [ -f "$file" ]; then
-            echo "File: $file"
-            echo "Size: $(wc -c "$file" | awk '{print $1}')"
-            echo "md5sum: $(md5sum -b "$file" | awk '{print $1}')"
-            echo "sha256sum: $(sha256sum -b "$file" | awk '{print $1}')"
-        fi
-    done >> "$REPO/release_hash.txt"
 
     zip -r master.zip $REPO
     rm -rf $REPO
+
+    cat << EOF >> release_hash.txt
+        "Url: ${URL}"
+        "Size: $(wc -c ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+        "md5sum: $(md5sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+        "sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
+    EOF
 done
 
 
