@@ -14,7 +14,7 @@ jobs:
         with:
           repository: 'IskandarKurbonov/update'
           path: 'update'
-          ref: feature/some-fix
+          ref: release/v1.0.1 
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -32,8 +32,8 @@ jobs:
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/}
-          cat ./script.sh
-          bash ./script.sh
+          cat ./update.sh
+          bash ./update.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
