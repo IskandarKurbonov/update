@@ -14,7 +14,7 @@ jobs:
         with:
           repository: 'IskandarKurbonov/update'
           path: 'update'
-          ref: feature/some-fix
+          ref: ${{github.ref}}
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
