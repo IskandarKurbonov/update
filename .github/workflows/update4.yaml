@@ -11,10 +11,6 @@ jobs:
     steps:
       - name: Checkout update directory
         uses: actions/checkout@v4
-        with:
-          repository: 'IskandarKurbonov/update'
-          path: 'update'
-          ref: ${{github.ref}}
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
@@ -27,7 +23,6 @@ jobs:
 
       - name: Start update license
         run: |
-          cd ./update
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
@@ -39,5 +34,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: license-artifact
-          path: ./update/master.zip
+          path: master.zip
 
