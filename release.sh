@@ -40,5 +40,5 @@ git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/updat
 cd ${MAIN_DIR}/update
 git tag ${RELEASE_TAG}
 git push origin ${RELEASE_TAG}
-gh release create ${RELEASE_TAG} ../../master.zip ../../release_hash.txt
+gh release create ${RELEASE_TAG} ../../${OUTPUT_FILE_NAME} ../../release_hash.txt
 
