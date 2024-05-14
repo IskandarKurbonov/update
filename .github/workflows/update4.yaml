@@ -21,17 +21,13 @@ jobs:
         run: |
           pip3 install reuse lint jinja2
 
-      - name: Set version
-        id: set-version
+      - name: Start update license
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${BRANCH_NAME#*/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Start update license
-        run: |
           cat ./release.sh
           bash ./release.sh
 
