@@ -29,8 +29,8 @@ jobs:
           TAG=${GITHUB_REF#refs/tags/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
-          export VERSION=${TAG#*/v}
-          echo "version=${TAG#*/v}" >> $GITHUB_OUTPUT
+          export VERSION=${TAG#*v}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "version-v=${VERSION%.*}" >> $GITHUB_OUTPUT
           bash ./release.sh
 
