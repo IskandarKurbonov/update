@@ -31,7 +31,7 @@ jobs:
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${TAG#*/v}
           echo "version=${TAG#*/v}" >> $GITHUB_OUTPUT
-          echo "version-v=v${VERSION%.*}" >> $GITHUB_OUTPUT
+          echo "version-v=${VERSION%.*}" >> $GITHUB_OUTPUT
 
       - run:  |
           echo "Is a version"
@@ -39,18 +39,18 @@ jobs:
           echo "IS A version-v"
           echo ${{steps.set-version.outputs.version-v}}
 
-      # - name: Release
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     tag_name: v${{steps.set-version.outputs.version}}
-      #     token: ${{secrets.TOKEN}}
-      #     files: |
-      #       v${{steps.set-version.outputs.VERSION}}.zip
-      #       release_hash.txt
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{steps.set-version.outputs.version-v}}
+          token: ${{secrets.TOKEN}}
+          files: |
+            v${{steps.set-version.outputs.version}}.zip
+            release_hash.txt
 
 
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: v${{steps.set-version.outputs.VERSION}}.zip
-      #     path: v${{steps.set-version.outputs.VERSION}}.zip
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: v${{steps.set-version.outputs.version}}.zip
+          path: v${{steps.set-version.outputs.version}}.zip
