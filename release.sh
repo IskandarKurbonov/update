@@ -36,9 +36,9 @@ cat << EOF >> release_hash.txt
 "sha256sum: $(sha256sum -b ${OUTPUT_FILE_NAME} | awk '{print $1}')"
 EOF
 
-git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ${MAIN_DIR}/update
-cd ${MAIN_DIR}/update
-git tag ${RELEASE_TAG}
-git push origin ${RELEASE_TAG}
-gh release create ${RELEASE_TAG} ../../${OUTPUT_FILE_NAME} ../../release_hash.txt
+# git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/update.git ${MAIN_DIR}/update
+# cd ${MAIN_DIR}/update
+# git tag ${RELEASE_TAG}
+# git push origin ${RELEASE_TAG}
+# gh release create ${RELEASE_TAG} ../../${OUTPUT_FILE_NAME} ../../release_hash.txt
 

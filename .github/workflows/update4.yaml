@@ -41,9 +41,17 @@ jobs:
           cat ./release.sh
           bash ./release.sh
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: license-artifact
-          path: v${{steps.set-version.outputs.version}}.zip
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: license-artifact
+      #     path: v${{steps.set-version.outputs.version}}.zip
 
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{steps.set-version.outputs.version}}
+          token: ${{secrets.TOKEN}}
+          files: |
+            v${{steps.set-version.outputs.version}}.zip
+            release_hash.txt
