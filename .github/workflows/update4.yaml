@@ -31,7 +31,7 @@ jobs:
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${TAG#*/v}
           echo "VERSION=${TAG#*/v}" >> $GITHUB_OUTPUT
-          echo "version=${VERSION%.*}" >> $GITHUB_OUTPUT
+          echo "version=v${VERSION%.*}" >> $GITHUB_OUTPUT
 
       - run:  |
           echo "Is a version"
