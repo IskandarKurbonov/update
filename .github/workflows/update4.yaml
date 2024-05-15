@@ -21,15 +21,6 @@ jobs:
         run: |
           pip3 install reuse lint jinja2
 
-      # - name: Start update license
-      #   run: |
-      #     BRANCH_NAME=${GITHUB_REF#refs/heads/}
-      #     export GITHUB_TOKEN="${{secrets.TOKEN}}"
-      #     export GITHUB_USER="IskandarKurbonov"
-      #     export VERSION=${BRANCH_NAME#*/v}
-      #     cat ./release.sh
-      #     bash ./release.sh
-
       - name: Start update license
         id: set-version
         run: |
@@ -41,12 +32,6 @@ jobs:
           cat ./release.sh
           bash ./release.sh
 
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: license-artifact
-      #     path: v${{steps.set-version.outputs.version}}.zip
-
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
@@ -55,3 +40,10 @@ jobs:
           files: |
             v${{steps.set-version.outputs.version}}.zip
             release_hash.txt
+
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-artifact
+          path: v${{steps.set-version.outputs.version}}.zip
