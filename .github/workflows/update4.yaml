@@ -43,15 +43,15 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{steps.set-version.outputs.version-v}}
+          tag_name: v${{steps.set-version.outputs.version-v}}
           token: ${{secrets.TOKEN}}
           files: |
-            ${{steps.set-version.outputs.version}}.zip
+            v${{steps.set-version.outputs.version}}.zip
             release_hash.txt
 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{steps.set-version.outputs.version}}.zip
-          path: ${{steps.set-version.outputs.version}}.zip
+          name: v${{steps.set-version.outputs.version}}.zip
+          path: v${{steps.set-version.outputs.version}}.zip
