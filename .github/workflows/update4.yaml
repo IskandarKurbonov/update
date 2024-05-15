@@ -2,6 +2,8 @@ name: Update license
 
 on:
   push:
+    tags:
+      - v*
 
 jobs:
   update-license:
@@ -24,26 +26,31 @@ jobs:
       - name: Start update license
         id: set-version
         run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          TAG=${GITHUB_REF#refs/tags/}
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="IskandarKurbonov"
-          export VERSION=${BRANCH_NAME#*/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          cat ./release.sh
-          bash ./release.sh
+          export VERSION=${TAG#*/v}
+          echo "VERSION=${TAG#*/v}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION%.*}" >> $GITHUB_OUTPUT
 
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{steps.set-version.outputs.version}}
-          token: ${{secrets.TOKEN}}
-          files: |
-            v${{steps.set-version.outputs.version}}.zip
-            release_hash.txt
+      - run:  |
+          echo "Is a version"
+          echo ${{steps.set-version.outputs.version}}
+          echo "IS A VERSION"
+          echo ${{steps.set-version.outputs.VERSION}}
+
+      # - name: Release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: v${{steps.set-version.outputs.version}}
+      #     token: ${{secrets.TOKEN}}
+      #     files: |
+      #       v${{steps.set-version.outputs.VERSION}}.zip
+      #       release_hash.txt
 
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: license-artifact
-          path: v${{steps.set-version.outputs.version}}.zip
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: v${{steps.set-version.outputs.VERSION}}.zip
+      #     path: v${{steps.set-version.outputs.VERSION}}.zip
