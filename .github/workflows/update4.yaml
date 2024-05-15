@@ -32,6 +32,7 @@ jobs:
           export VERSION=${TAG#*/v}
           echo "version=${TAG#*/v}" >> $GITHUB_OUTPUT
           echo "version-v=${VERSION%.*}" >> $GITHUB_OUTPUT
+          bash ./release.sh
 
       - run:  |
           echo "Is a version"
@@ -45,12 +46,12 @@ jobs:
           tag_name: ${{steps.set-version.outputs.version-v}}
           token: ${{secrets.TOKEN}}
           files: |
-            v${{steps.set-version.outputs.version}}.zip
+            ${{steps.set-version.outputs.version}}.zip
             release_hash.txt
 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: v${{steps.set-version.outputs.version}}.zip
-          path: v${{steps.set-version.outputs.version}}.zip
+          name: ${{steps.set-version.outputs.version}}.zip
+          path: ${{steps.set-version.outputs.version}}.zip
