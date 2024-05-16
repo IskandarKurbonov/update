@@ -47,4 +47,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: archive.zip
-          path: archive.zip
+          path: |
+            archive.zip
+            release_hash.txt
