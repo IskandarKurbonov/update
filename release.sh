@@ -15,14 +15,13 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
-            perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  # C, C++, Java, JavaScript, CSS, SCSS
-            perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  # Python one more string comments
-            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  # HTML, XML
-            perl -i -0777 -pe 's|#.*?Ascensio System SIA.*?$||gm' "$file"  # Python, Ruby one string comments
-            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  # Ruby one more string comments
-            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$||gm' "$file"  # C++, Java, JavaScript one string comments
-            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  # HTML, XML
-            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$||gm' "$file"  # Batch files
+            perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
+            perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  
+            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  
+            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^#.*?$||gms' "$file"  
+            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  
+            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gms' "$file"  
+            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gms' "$file"  
         fi
         reuse annotate --year 2024 --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
     done
