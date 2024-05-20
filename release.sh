@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
 
 ONLYOFFICE_REPOS=()
@@ -19,10 +18,10 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
             perl -i -0777 -pe 's|/\*.*?Copyright Ascensio System SIA 2024.*?\*/||gs' "$file"  
             perl -i -0777 -pe 's|""".*?Copyright Ascensio System SIA 2024.*?"""||gs' "$file"  
             perl -i -0777 -pe 's|<!--.*?Copyright Ascensio System SIA 2024.*?-->||gs' "$file"  
-            perl -i -0777 -pe 's|^#.*?Copyright Ascensio System SIA 2024.*?$.*?^(#.*?$\n?)*||gsm' "$file"  
+            perl -i -0777 -pe 's|^#.*?Copyright Ascensio System SIA 2024.*?$.*?^(#.*?$)*||gsm' "$file"  
             perl -i -0777 -pe 's|=begin.*?Copyright Ascensio System SIA 2024.*?=end||gs' "$file"  
-            perl -i -0777 -pe 's|//.*?Copyright Ascensio System SIA 2024.*?$.*?^(//.*?$\n?)*||gsm' "$file"  
-            perl -i -0777 -pe 's|REM.*?Copyright Ascensio System SIA 2024.*?$.*?^(REM.*?$\n?)*||gsm' "$file"  
+            perl -i -0777 -pe 's|//.*?Copyright Ascensio System SIA 2024.*?$.*?^(//.*?$)*||gsm' "$file"  
+            perl -i -0777 -pe 's|REM.*?Copyright Ascensio System SIA 2024.*?$.*?^(REM.*?$)*||gsm' "$file"  
         fi
         reuse annotate --year 2024 --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
     done
