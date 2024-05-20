@@ -19,7 +19,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
             perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
             perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  
             perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  
-            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^(#.*?$\n?)*||gsm' "$file"
+            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^(#.*?$\n?)*||gs' "$file"
             perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  
             perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gs' "$file"  
             perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gs' "$file"  
