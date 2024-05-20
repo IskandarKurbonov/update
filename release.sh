@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
 
 ONLYOFFICE_REPOS=()
@@ -14,14 +15,14 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o \
         -name "*.jsp" \) | \
     while read -r file; do
-        if grep -q "Copyright Ascensio System SIA 2024" "$file"; then
-            perl -i -0777 -pe 's|/\*[^*]*Copyright Ascensio System SIA 2024.*?\*/||gs' "$file"
-            perl -i -0777 -pe 's|"""[^"]*Copyright Ascensio System SIA 2024.*?"""||gs' "$file"
-            perl -i -0777 -pe 's|<!--[^-]*Copyright Ascensio System SIA 2024.*?-->||gs' "$file"
-            perl -i -0777 -pe 's|^#.*?Copyright Ascensio System SIA 2024.*?$||gsm' "$file"
-            perl -i -0777 -pe 's|=begin.*?Copyright Ascensio System SIA 2024.*?=end||gs' "$file"
-            perl -i -0777 -pe 's|//.*?Copyright Ascensio System SIA 2024.*?$||gsm' "$file"
-            perl -i -0777 -pe 's|REM.*?Copyright Ascensio System SIA 2024.*?$||gsm' "$file"
+        if grep -q "Ascensio System SIA" "$file"; then
+            perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
+            perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  
+            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  
+            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^#.*?$||gs' "$file"  
+            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  
+            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gs' "$file"  
+            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gs' "$file"  
         fi
         reuse annotate --year 2024 --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
     done
