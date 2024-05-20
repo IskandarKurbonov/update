@@ -12,8 +12,8 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
     find $REPO -type f \( \
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
         -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o \
-        -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o \
-        -name "*.jsp" \) | \
+        -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o  \
+        -name "*.jsp" -o -name "*.aspx" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
             perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
