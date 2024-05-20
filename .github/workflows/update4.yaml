@@ -31,6 +31,7 @@ jobs:
           export GITHUB_USER="IskandarKurbonov"
           export VERSION=${TAG#*v}
           echo "version=${VERSION%.*}" >> $GITHUB_OUTPUT
+          export YEAR=$(date +'%Y')
           bash ./release.sh
 
       - name: Release
