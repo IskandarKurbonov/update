@@ -16,13 +16,16 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.jsp" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
-            perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
-            perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  
-            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  
-            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^#.*?$||gs' "$file"  
-            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  
-            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gs' "$file"  
-            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gs' "$file"  
+            perl -i -0777 -pe 's|/\*[^*]*Ascensio System SIA.*?\*/||gs' "$file"
+            perl -i -0777 -pe 's|"""[^"]*Ascensio System SIA.*?"""||gs' "$file"
+            perl -i -0777 -pe 's|<!--[^-]*Ascensio System SIA.*?-->||gs' "$file"
+            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$||gs' "$file"
+            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"
+            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$||gs' "$file"
+            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$||gs' "$file"
+        fi
+        if grep -q "^#  Copyright Ascensio System SIA 2024" "$file"; then
+            perl -i -0777 -pe 's|^#  Copyright Ascensio System SIA 2024.*?$||gs' "$file"
         fi
         reuse annotate --year 2024 --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
     done
