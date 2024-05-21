@@ -5,7 +5,6 @@ OUTPUT_FILE_NAME=archive.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
-ONLYOFFICE_REPOS+=('desktop-apps')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
     git clone --depth 1 https://github.com/$GITHUB_USER/$REPO.git
