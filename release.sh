@@ -25,7 +25,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
             perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gs' "$file"  
         fi
         reuse annotate --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
-        perl -i -0777 -pe 's/# Copyright Ascensio System SIA.*//gs' "$file"
+        perl -i -0777 -pe 's/^# Copyright Ascensio System SIA.*\n//gm' "$file"
     done
 
     rm -rf $REPO/.git*
