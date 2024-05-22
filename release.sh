@@ -2,7 +2,7 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-MASTER=master.zip
+MASTER=master.tar.gz
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
@@ -10,7 +10,7 @@ ONLYOFFICE_REPOS+=('document-server-integration')
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
     wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$MASTER
 
-    unzip $MASTER
+    tar -xvf $MASTER
 
     mv $REPO-master $REPO
 
@@ -18,7 +18,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
         -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o \
         -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o  \
-        -name "*.jsp" -o -name "*.aspx" \) | \
+        -name "*.jsp" -o -name "*.aspx" -o -name "onlyoffice.header" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
             perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
