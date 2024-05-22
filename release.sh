@@ -12,7 +12,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
 
     unzip $MASTER
 
-    mv $REPO-$MASTER $REPO
+    mv $REPO-master $REPO
 
     find $REPO -type f \( \
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
