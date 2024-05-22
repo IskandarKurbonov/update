@@ -30,7 +30,7 @@ jobs:
           export GITHUB_TOKEN="${{secrets.TOKEN}}"
           export GITHUB_USER="ONLYOFFICE"
           export VERSION=${TAG#*v}
-          echo "version=${VERSION%.*}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           export YEAR=$(date +'%Y')
           bash ./release.sh
 
