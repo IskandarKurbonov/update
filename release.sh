@@ -32,7 +32,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         fi
         reuse annotate --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
         perl -i -0777 -pe 's/^# Copyright Ascensio System SIA.*\n//gm' "$file"
-        find $REPO -type f -name "onlyoffice.header" -exec reuse annotate --style=css {} \;
+        find $REPO -type f -name "onlyoffice.header" -exec reuse annotate --style=css --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" {} \;
     done
 
     rm -rf $REPO/.git*
