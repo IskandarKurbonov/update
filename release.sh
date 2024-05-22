@@ -18,7 +18,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
         -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o \
         -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o  \
-        -name "*.jsp" -o -name "*.aspx" -o -name "onlyoffice.header" \) | \
+        -name "*.jsp" -o -name "*.aspx" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
             perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"  
@@ -32,6 +32,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         fi
         reuse annotate --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
         perl -i -0777 -pe 's/^# Copyright Ascensio System SIA.*\n//gm' "$file"
+        find $REPO -type f -name "onlyoffice.header" -exec reuse annotate --style=css {} \;
     done
 
     rm -rf $REPO/.git*
