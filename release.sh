@@ -2,7 +2,7 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-MASTER=master.tar.gz
+MASTER=master.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
@@ -10,7 +10,7 @@ ONLYOFFICE_REPOS+=('document-server-integration')
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
     wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$MASTER
 
-    tar -xvf $MASTER
+    unzip $MASTER
 
     mv $REPO-master $REPO
 
