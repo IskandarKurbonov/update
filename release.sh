@@ -15,27 +15,39 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
     mv $REPO-master $REPO
 
     find $REPO -type f \( \
-        -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
-        -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o \
-        -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o  \
-        -name "*.jsp" -o -name "*.aspx" -o -name "*.ejs" -o -name "*.c" -o \
-        -name "*.h" -o -name "*.cxx" -o -name "*.m" -o -name "*.mm" \) | \
+        -name "*.aspx" \
+        -o -name "*.bat" \
+        -o -name "*.c" \
+        -o -name "*.cs" \
+        -o -name "*.css" \
+        -o -name "*.cpp" \
+        -o -name "*.cxx" \
+        -o -name "*.h" \
+        -o -name "*.html" \
+        -o -name "*.java" \
+        -o -name "*.js" \
+        -o -name "*.jsp" \
+        -o -name "*.m" \
+        -o -name "*.mm" \
+        -o -name "*.php" \
+        -o -name "*.py" \
+        -o -name "*.rb" \
+        -o -name "*.sh" \
+        -o -name "*.scss" \) | \
     while read -r file; do
-        if grep -q "Ascensio System SIA" "$file"; then
-            perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"
-            perl -i -0777 -pe 's|""".*?Ascensio System SIA.*?"""||gs' "$file"  
-            perl -i -0777 -pe 's|<!--.*?Ascensio System SIA.*?-->||gs' "$file"  
-            perl -i -0777 -pe 's|^#.*?Ascensio System SIA.*?$.*?^#.*?$||gs' "$file"  
-            perl -i -0777 -pe 's|=begin.*?Ascensio System SIA.*?=end||gs' "$file"  
-            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gs' "$file"  
-            perl -i -0777 -pe 's|//.*?Ascensio System SIA.*?$.*?//.*?$||gs' "$file"
-            perl -i -0777 -pe 's|REM.*?Ascensio System SIA.*?$.*?REM.*?$||gs' "$file"  
+        if grep -q "Copyright Ascensio System" "$file"; then
+            perl -i -0777 -pe 's|/\*.*?Copyright Ascensio System.*?\*/||gs' "$file"
+            perl -i -0777 -pe 's|""".*?Copyright Ascensio System.*?"""||gs' "$file"  
+            perl -i -0777 -pe 's|<!--.*?Copyright Ascensio System.*?-->||gs' "$file"  
+            perl -i -0777 -pe 's|^#.*?Copyright Ascensio System.*?$.*?^#.*?$||gs' "$file"  
+            perl -i -0777 -pe 's|=begin.*?Copyright Ascensio System.*?=end||gs' "$file"  
+            perl -i -0777 -pe 's|//.*?Copyright Ascensio System.*?$.*?//.*?$||gs' "$file"  
+            perl -i -0777 -pe 's|//.*?Copyright Ascensio System.*?$.*?//.*?$||gs' "$file"
+            perl -i -0777 -pe 's|REM.*?Copyright Ascensio System.*?$.*?REM.*?$||gs' "$file"  
         fi
         reuse annotate --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" "$file"
         perl -i -0777 -pe 's/^# Copyright Ascensio System SIA.*\n//gm' "$file"
-        perl -i -0777 -pe 's/^* Copyright Ascensio System SIA.*\n//gm' "$file"
     done
-    find $REPO -type f -name "onlyoffice.header" -exec reuse annotate --style=css --year $YEAR --license Ascensio-System --copyright="Ascensio System SIA" --template="license" {} \;
     
     rm -rf $REPO/.git*
     
