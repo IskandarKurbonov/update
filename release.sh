@@ -19,7 +19,7 @@ for REPO in ${ONLYOFFICE_REPOS[*]}; do
         -name "*.rb" -o -name "*.py" -o -name "*.html" -o -name "*.bat" -o \
         -name "*.sh" -o -name "*.scss" -o -name "*.cs" -o -name "*.cpp" -o  \
         -name "*.jsp" -o -name "*.aspx" -o -name "*.ejs" -o -name "*.c" -o \
-        -name "*.h" -o -name "*.cxx" \) | \
+        -name "*.h" -o -name "*.cxx" -o -name "*.m" -o -name "*.mm" \) | \
     while read -r file; do
         if grep -q "Ascensio System SIA" "$file"; then
             perl -i -0777 -pe 's|/\*.*?Ascensio System SIA.*?\*/||gs' "$file"
