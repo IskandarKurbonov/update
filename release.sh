@@ -2,17 +2,17 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-MASTER-ARCHIVE=master.zip
+MASTER=master.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
-    wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/master.zip
+    wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$MASTER
 
-    unzip ${MASTER-ARCHIVE}
+    unzip $MASTER
 
-    mv $REPO-${MASTER-ARCHIVE} $REPO
+    mv $REPO-$MASTER $REPO
 
     find $REPO -type f \( \
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
