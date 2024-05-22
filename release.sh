@@ -2,12 +2,17 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
+MASTER-ARCHIVE=master.zip
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
-    git clone --depth 1 https://github.com/$GITHUB_USER/$REPO.git
+    wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/master.zip
+
+    unzip ${MASTER-ARCHIVE}
+
+    mv $REPO-${MASTER-ARCHIVE} $REPO
 
     find $REPO -type f \( \
         -name "*.js" -o -name "*.java" -o -name "*.css" -o -name "*.php" -o \
