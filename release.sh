@@ -2,16 +2,14 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-BRANCHES=()
-BRANCHES+=('main')
-BRANCHES+=('master')
+BRANCHES=('main' 'master')
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
     for BRANCH in ${BRANCHES[@]}; do
-        if wget -q https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$BRANCH.zip; then
+        if wget -q https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$BRANCH.zip -O $REPO-$BRANCH.zip; then
             unzip -q $REPO-$BRANCH.zip
             mv $REPO-$BRANCH $REPO
             break
