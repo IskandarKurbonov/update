@@ -2,9 +2,9 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-BRANCH=()
-BRANCH+=('main')
-BRANCH+=('master')
+BRANCHES=()
+BRANCHES+=('main')
+BRANCHES+=('master')
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
