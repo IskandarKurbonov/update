@@ -2,17 +2,20 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
-MASTER=master.zip
+BRANCH+=('main')
+BRANCH+=('master')
 
 ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
-    wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$MASTER
+    for BRANCH in ${BRANCH[*]}; do
+        wget https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$BRANCH.zip; then
 
-    unzip $MASTER
+        unzip $REPO-$BRANCH.zip
 
-    mv $REPO-master $REPO
+        mv $REPO-$BRANCH $REPO
+    done
 
     find $REPO -type f \( \
         -name "*.aspx" \
