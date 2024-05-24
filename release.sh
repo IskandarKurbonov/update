@@ -2,6 +2,7 @@
 
 RELEASE_TAG=v${VERSION%.*}
 OUTPUT_FILE_NAME=archive.zip
+BRANCH=()
 BRANCH+=('main')
 BRANCH+=('master')
 
