@@ -10,13 +10,15 @@ ONLYOFFICE_REPOS=()
 ONLYOFFICE_REPOS+=('document-server-integration')
 
 for REPO in ${ONLYOFFICE_REPOS[*]}; do
-    if wget -q https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$BRANCH.zip; then
-        unzip -q $REPO-$BRANCH.zip
-        mv $REPO-$BRANCH $REPO
-        break
-    else
-        echo "Failed to download $REPO with branch $BRANCH"
-    fi
+    for BRANCH in ${BRANCHES[@]}; do
+        if wget -q https://github.com/$GITHUB_USER/$REPO/archive/refs/heads/$BRANCH.zip; then
+            unzip -q $REPO-$BRANCH.zip
+            mv $REPO-$BRANCH $REPO
+            break
+        else
+            echo "Failed to download $REPO with branch $BRANCH"
+        fi
+    done
 
     find $REPO -type f \( \
         -name "*.aspx" \
